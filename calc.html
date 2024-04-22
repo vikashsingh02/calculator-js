@@ -17,9 +17,9 @@
             text-align: center;
         }
         .calc{
-            padding: 15px;
+            padding:25px;
             height: 450px;
-            width: 400px;
+            width: 320px;
             background-color: azure;
             border: 1px solid black;
         }
@@ -45,6 +45,7 @@
          .bnts{
             display: grid;
             grid-template-columns: repeat(2 ,1fr);
+            margin: 5px;
          }
          .calc{
             padding: 5px;
@@ -57,77 +58,68 @@
          .input{
             width:90%;
          }
+         .equals{
+            align-self: center;
+            justify-content: center;
+            display: flex;
+         }
 }
     </style>
 </head>
 <body>
     <div class="center">
-    <h1 class="heading">Calculator</h1>
-    <div class="calc">
-        <div><input type="text" class="input" readonly></div>
-        <div class="bnts">
-            <button class="num-btns" onclick="displayval = '';
-            document.querySelector('.input').value = displayval;"
-            >C</button>
+        <h1 class="heading">Calculator</h1>
+        <div class="calc">
+            <div><input type="text" class="input" readonly></div>
+            <div class="btns">
+                <button class="num-btns" aria-label="Clear" onclick="clearInput()">C</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('1')">1</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('2')">2</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('+')">+</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('3')">3</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('4')">4</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('-')">-</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('5')">5</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('6')">6</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('*')">*</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('7')">7</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('8')">8</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('/')">/</button>
+                <button class="num-btns" aria-label="Number 1" onclick="addToExpression('9')">9</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('0')">0</button>
+                <button class="num-btns" aria-label="Number 2" onclick="addToExpression('.')">.</button>
 
-
-            <button class="num-btns" onclick="displayval = displayval+'1';
-            document.querySelector('.input').value = displayval;"
-             >1</button>
-
-
-            <button class="num-btns"onclick="displayval = displayval+'2';
-            document.querySelector('.input').value = displayval;"
-            >2</button>
-            <button class="num-btns" onclick="displayval = displayval+'+';
-            document.querySelector('.input').value = displayval;"
-            >+</button>
-            <button class="num-btns" onclick="displayval = displayval+'3';
-            document.querySelector('.input').value = displayval;"
-            >3</button>
-            <button class="num-btns" onclick="displayval = displayval+'4';
-            document.querySelector('.input').value = displayval;"
-            >4</button>
-            <button class="num-btns" onclick="displayval = displayval+'-';
-            document.querySelector('.input').value = displayval;"
-            >-</button>
-            <button class="num-btns" onclick="displayval = displayval+'5';
-            document.querySelector('.input').value = displayval;"
-            >5</button>
-            <button class="num-btns" onclick="displayval = displayval+'6';
-            document.querySelector('.input').value = displayval;"
-            >6</button>
-            <button class="num-btns" onclick="displayval = displayval+'*';
-            document.querySelector('.input').value = displayval;">*</button>
-            <button class="num-btns" onclick="displayval = displayval+'7';
-            document.querySelector('.input').value = displayval;">7</button>
-            <button class="num-btns" onclick="displayval = displayval+'8';
-            document.querySelector('.input').value = displayval;"
-            >8</button>
-            <button class="num-btns" onclick="displayval = displayval+'/';
-            document.querySelector('.input').value = displayval;">/</button>
-            <button class="num-btns" onclick="displayval = displayval+'9';
-            document.querySelector('.input').value = displayval;">9</button>
-            <button class="num-btns" onclick="displayval = displayval+'0';
-            document.querySelector('.input').value = displayval;">0</button>
-
-
-            <button class="num-btns" onclick="
-            let result = eval(displayval)
-            displayval = result;
-            document.querySelector('.input').value = displayval;">=</button>
-
-
-            <button class="num-btns" onclick="displayval = displayval+'.';
-            document.querySelector('.input').value = displayval;"
-            >.</button>
+                <button class="num-btns equals" aria-label="Equals" onclick="calculate()">=</button>
+            </div>
         </div>
     </div>
-
-    </div>
     <script>
-        let displayval = '';
-        document.querySelector('.input').value = displayval;
+        let currentInput = '';
+
+        function clearInput() {
+            currentInput = '';
+            updateDisplay();
+        }
+
+        function addToExpression(value) {
+            currentInput += value;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.querySelector('.input').value = currentInput;
+        }
+
+        function calculate() {
+            try {
+                let result = eval(currentInput);
+                currentInput = result.toString();
+                updateDisplay();
+            } catch (error) {
+                currentInput = 'enter somthing , to clear press C';
+                updateDisplay();
+            }
+        }
     </script>
 </body>
 </html>
